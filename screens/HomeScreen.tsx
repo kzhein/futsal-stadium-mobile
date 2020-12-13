@@ -33,6 +33,7 @@ const HomeScreen = () => {
     success: successNewBooking,
   } = useSelector((state: RootStore) => state.newBooking);
   const showFab = availableHours.some(ava => ava.selected === true);
+
   const availableHoursRemaining = availableHours.filter(ava =>
     hasNotPassedTheCurrentTime(date!, ava.start)
   );

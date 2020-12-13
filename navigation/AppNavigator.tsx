@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
+
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
+import * as Notifications from 'expo-notifications';
 import HomeScreen from '../screens/HomeScreen';
 import AccountNavigator from './AccountNavigator';
 import AuthNavigator from './AuthNavigator';
@@ -10,11 +12,21 @@ import LoadingScreen from '../screens/LoadingScreen';
 import { loadUser } from '../actions/userActions';
 import useToast from '../hooks/useToast';
 import { RootStore } from '../store';
+import usePushToken from '../hooks/usePushToken';
 
 const Tab = createBottomTabNavigator();
 
+// to show notifications even if the app is in foreground, by default notifications will not be shown if the app is in foreground
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return {
+      shouldShowAlert: true,
+    };
+  },
+});
+
 const AppNavigator = () => {
-  const { isAuthenticated, success, error } = useSelector(
+  const { isAuthenticated, success, error, token } = useSelector(
     (state: RootStore) => state.userAuth
   );
   const { success: successNewBooking } = useSelector(
@@ -25,6 +37,7 @@ const AppNavigator = () => {
   const dispatch = useDispatch();
   useToast(success, error);
   useToast(successNewBooking, null);
+  usePushToken();
 
   useEffect(() => {
     dispatch(loadUser());

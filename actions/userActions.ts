@@ -125,9 +125,32 @@ export const signup = (
   }
 };
 
-export const logout = (): AppThunk<UserDispatchTypes> => async dispatch => {
-  removeAuthFromStorage();
-  dispatch({ type: USER_LOGOUT });
+export const logout = (): AppThunk<UserDispatchTypes> => async (
+  dispatch,
+  getState
+) => {
+  try {
+    const {
+      userAuth: { token },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const pushToken = await AsyncStorage.getItem('PushToken');
+
+    await axios.patch(`${url}/api/v1/users/logout`, { pushToken }, config);
+
+    await AsyncStorage.removeItem('PushToken');
+    await AsyncStorage.removeItem('AuthData');
+    dispatch({ type: USER_LOGOUT });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const loadUser = (): AppThunk<UserDispatchTypes> => async dispatch => {
@@ -256,14 +279,6 @@ export const updateUserPassword = (
 const saveAuthToStorage = async (token: string, user: User) => {
   try {
     await AsyncStorage.setItem('AuthData', JSON.stringify({ token, user }));
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const removeAuthFromStorage = async () => {
-  try {
-    await AsyncStorage.removeItem('AuthData');
   } catch (error) {
     console.log(error);
   }

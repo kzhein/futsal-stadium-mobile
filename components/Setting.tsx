@@ -7,7 +7,7 @@ interface Props {
   title: string;
   description: string;
   icon: {
-    name: any;
+    name: string;
     size: number;
     color: string;
   };
