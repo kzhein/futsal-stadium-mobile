@@ -21,6 +21,8 @@ Notifications.setNotificationHandler({
   handleNotification: async () => {
     return {
       shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
     };
   },
 });

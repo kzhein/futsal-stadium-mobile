@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import * as Permissions from 'expo-permissions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
