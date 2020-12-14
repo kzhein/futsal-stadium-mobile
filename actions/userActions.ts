@@ -204,6 +204,7 @@ export const updateUserDetails = (
       payload: { user, success: 'User updated successfully' },
     });
     dispatch({ type: CLEAR_AUTH_SUCCESS });
+    saveAuthToStorage(token!, user);
   } catch (error) {
     dispatch({
       type: USER_DETAILS_UPDATE_FAIL,
