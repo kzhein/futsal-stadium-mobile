@@ -52,10 +52,9 @@ export const createNewBooking = (
   } catch (error) {
     dispatch({
       type: BOOKING_CREATE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response?.data?.message
+        ? error.response.data.message
+        : error.message,
     });
     dispatch({ type: BOOKING_STATUS_RESET });
   }
@@ -104,13 +103,12 @@ export const getUserBookings = (): AppThunk<
   } catch (error) {
     dispatch({
       type: USER_BOOKINGS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response?.data?.message
+        ? error.response.data.message
+        : error.message,
     });
 
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       localStorage.removeItem('token');
       dispatch({ type: USER_LOGOUT });
     }

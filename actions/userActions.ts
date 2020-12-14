@@ -70,10 +70,9 @@ export const login = (
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response?.data?.message
+        ? error.response.data.message
+        : error.message,
     });
   }
 };
@@ -117,10 +116,9 @@ export const signup = (
   } catch (error) {
     dispatch({
       type: USER_SIGNUP_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response?.data?.message
+        ? error.response.data.message
+        : error.message,
     });
   }
 };
@@ -209,10 +207,9 @@ export const updateUserDetails = (
   } catch (error) {
     dispatch({
       type: USER_DETAILS_UPDATE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response?.data?.message
+        ? error.response.data.message
+        : error.message,
     });
     dispatch({ type: CLEAR_AUTH_ERROR });
   }
@@ -267,10 +264,9 @@ export const updateUserPassword = (
   } catch (error) {
     dispatch({
       type: USER_PASSWORD_UPDATE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response?.data?.message
+        ? error.response.data.message
+        : error.message,
     });
     dispatch({ type: CLEAR_AUTH_ERROR });
   }

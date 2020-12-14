@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 interface Props {
-  style?: {};
+  style?: object;
   [x: string]: any;
 }
 
